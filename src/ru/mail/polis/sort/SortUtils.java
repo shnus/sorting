@@ -14,6 +14,13 @@ public class SortUtils {
         a[j] = x;
     }
 
+    public static  <T> void swapT(T[] a, int i, int j) {
+        T t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+
+    }
+
     public static int[] generateArray(int n) {
         int[] a = new int[n];
         for (int i = 0; i < a.length; i++) {
@@ -22,6 +29,34 @@ public class SortUtils {
         for (int i = a.length - 1; i > 0; i--) {
             int j = r.nextInt(i + 1);
             SortUtils.swap(a, i, j);
+        }
+        return a;
+    }
+
+    public static Integer[] generateIntegerArray(int n) {
+        Integer[] a = new Integer[n];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = i;
+        }
+        for (int i = a.length - 1; i > 0; i--) {
+            int j = r.nextInt(i + 1);
+            SortUtils.swapT(a, i, j);
+        }
+        return a;
+    }
+
+    public static Integer[] generateIntegerArrayASC(int n) {
+        Integer[] a = new Integer[n];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = i;
+        }
+        return a;
+    }
+
+    public static Integer[] generateIntegerArrayDESC(int n) {
+        Integer[] a = new Integer[n];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = a.length-i;
         }
         return a;
     }
