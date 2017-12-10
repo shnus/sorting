@@ -12,7 +12,7 @@ public class QuickSortWithInsertions {
     private <T extends Comparable<T>> void sort(T[] a, int left, int right) {
         if (left >= right) return;
         int idx = partition(a, left, right);
-        if(right-left<20){
+        if(right-left<10){
             InsertionSort.sort(a, left, idx);
             InsertionSort.sort(a, idx+1, right);
         } else {

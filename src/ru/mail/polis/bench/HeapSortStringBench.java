@@ -6,10 +6,9 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import ru.mail.polis.sort.QuickSort;
-import ru.mail.polis.sort.QuickSortOptim;
-import ru.mail.polis.sort.QuickSortWithInsertions;
-import ru.mail.polis.sort.SortUtils;
+import ru.mail.polis.sort.HeapSort;
+import ru.mail.polis.sort.MergeSort;
+import ru.mail.polis.sort.RandomString;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -17,20 +16,22 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-public class QuickSortWithInsertionsBench {
+public class HeapSortStringBench {
 
     private Integer[] a;
-    Integer [][] data;
-    Integer[] curr;
-    int index;
+    String [][] data;
+    String[] curr;
+    static int index = 0;
 
     @Setup(value = Level.Trial)
     public void setUpTrial() {
         int n = 10;
-        data = new Integer[10][n];
-
+        data = new String[10][n];
+        RandomString rs = new RandomString(20);
         for (int i = 0; i<10; i++) {
-            data[i] = SortUtils.generateIntegerArrayDESC(n);
+            for(int j =0; j < n; j++) {
+                data[i][j] = rs.nextString();
+            }
         }
 
     }
@@ -40,19 +41,21 @@ public class QuickSortWithInsertionsBench {
         curr = Arrays.copyOf(data[index], data[index].length);
         index = (index + 1) % 10;
     }
+
     @Benchmark
     public void measureQuickSort(Blackhole bh) {
-        bh.consume(new QuickSortWithInsertions().sort(curr));
+        bh.consume(new HeapSort().sort(curr));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(QuickSortWithInsertionsBench.class.getSimpleName())
+                .include(HeapSortStringBench.class.getSimpleName())
                 .warmupIterations(3)
                 .measurementIterations(3)
                 .forks(1)
                 .build();
 
         new Runner(opt).run();
+
     }
 }

@@ -20,7 +20,7 @@ public class BubbleSortBench {
 
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        a = SortUtils.generateArray(1000);
+        a = SortUtils.generateArray(10000);
     }
 
     @Benchmark

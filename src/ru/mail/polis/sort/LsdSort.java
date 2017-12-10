@@ -5,7 +5,7 @@ import ru.mail.polis.structures.Numerical;
 public class LsdSort {
     public <T extends Numerical> T[] sort(T[] a) {
         final int r = 10;
-        int d = 20;
+        int d = 8;
         for (int k = d - 1; k >= 0; k--) {
             int[] count = new int[r];
             for (T x : a) count[digit(x, k)]++;

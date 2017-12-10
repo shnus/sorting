@@ -136,6 +136,11 @@ public class SimpleTest {
 
     @Test
     public void testCountingSortInteger01() {
+        RandomString rs = new RandomString(20);
+        for(int i=0; i<100;i++){
+            String s = rs.nextSimpleString();
+            System.out.println(s);
+        }
         LsdSort lsdSort = new LsdSort();
         SimpleInteger[] array = new SimpleInteger[]{
                 new SimpleInteger(1),

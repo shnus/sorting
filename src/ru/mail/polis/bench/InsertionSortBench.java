@@ -25,26 +25,20 @@ public class InsertionSortBench {
 
     @Setup(value = Level.Trial)
     public void setUpTrial() {
-        data = new Integer[10][1000];
+        int n = 10;
+        data = new Integer[10][n];
 
-        for (int i = 0; i<4; i++) {
-            data[i] = SortUtils.generateIntegerArray(1000);
-        }
-        for (int i = 0; i<7; i++) {
-            data[i] = SortUtils.generateIntegerArrayASC(1000);
-        }
         for (int i = 0; i<10; i++) {
-            data[i] = SortUtils.generateIntegerArrayDESC(1000);
+            data[i] = SortUtils.generateIntegerArrayDESC(n);
         }
 
     }
-
+    static int status = 1;
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
         curr = Arrays.copyOf(data[index], data[index].length);
         index = (index + 1) % 10;
     }
-
     @Benchmark
     public void measureQuickSort(Blackhole bh) {
         bh.consume(InsertionSort.sort(curr));
@@ -53,7 +47,7 @@ public class InsertionSortBench {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(InsertionSortBench.class.getSimpleName())
-                .warmupIterations(6)
+                .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)
                 .build();
